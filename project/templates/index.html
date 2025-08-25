@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block title %}Your Tasks{% endblock %}
+
+{% block content %}
+    
+<div>
+    <h2 class = "heading">Your Tasks</h2>
+
+<!-- Reminders are listed here -->
+    <!--<ul id = "tasks" class="custom-reminder-list"></ul> -->
+    <div class="container">
+        <div id="task-row" class="row"></div>
+    </div>
+
+</div>
+<span><button id = "add-button" class="btn black-button" onclick="openPopup(); closeUpdatePopup()">+Add</button></span>
+<!-- Add Reminder Popup -->
+<div id="popup" class="popup-overlay">
+    <div class="popup-content">
+        <form id="reminder-form">
+            <label for="reminderInput">Reminder name:</label>
+            <input type="text" id="reminderInput">
+
+            <label for="timeInput">Time:</label>
+            <input type="time" id="timeInput">
+
+            <label for="dateInput">Date:</label>
+            <input type="date" id="dateInput">
+
+            <button type="submit" id="submit-btn">Save</button>
+            <button type="reset">Reset</button>
+            <button type="button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<!-- Update Reminder Popup -->
+<div id="update-popup" class="popup-overlay">
+    <div class="popup-content">
+        <form id="update-form">
+            <label for="update-reminderInput">Reminder name:</label>
+            <input type="text" id="update-reminderInput">
+
+            <label for="update-timeInput">Time:</label>
+            <input type="time" id="update-timeInput">
+
+            <label for="update-dateInput">Date:</label>
+            <input type="date" id="update-dateInput">
+
+            <button type="submit" id="update-submit-btn">Update</button>
+            <button type="reset">Reset</button>
+            <button type="button" onclick="closeUpdatePopup()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script src="{{url_for('static', filename='main.js')}}"></script>
+
+{% endblock %}
+

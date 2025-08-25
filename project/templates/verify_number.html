@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Phone</title>
+</head>
+<body>
+
+<!-- Verify button -->
+ <div>
+    <p>An otp will be sent to the provided mobile number</p>
+ </div>
+<button id="sendOtpBtn" >Send OTP</button>
+
+<!-- OTP input -->
+<div id="otpBox" style="display:none;">
+  <input type="text" id="otpInput" placeholder="Enter OTP" />
+  <button id="verifyOtpBtn" style="background:#333;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;">Verify OTP</button>
+</div>
+
+<div id="recaptcha-container"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } 
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCvLYarpFCrcFYzsUEnSLtQy2gnVDHxabM",
+        authDomain: "remindit-7ec38.firebaseapp.com",
+        projectId: "remindit-7ec38",
+        storageBucket: "remindit-7ec38.firebasestorage.app",
+        messagingSenderId: "684726195480",
+        appId: "1:684726195480:web:3d59e9c5ddf696ff49ba6d",
+        measurementId: "G-EQ51B851LB"
+      };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Setup Recaptcha
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+
+  let confirmationResult;
+  // 1. Send OTP
+  document.getElementById("sendOtpBtn").addEventListener("click", () => {
+    const phoneNumber = "+91{{ user.phone }}";  // you’ll pass this from backend
+    signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+      .then((result) => {
+        confirmationResult = result;
+        document.getElementById("otpBox").style.display = "block";
+        alert("OTP sent!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
+  // 2. Verify OTP
+  document.getElementById("verifyOtpBtn").addEventListener("click", () => {
+    const otp = document.getElementById("otpInput").value;
+    confirmationResult.confirm(otp).then((result) => {
+      const user = result.user;
+      alert("Phone verified!");
+      // Call your backend to set "verified = true"
+      fetch("/api/set_phone_verified", { method: "POST" });
+    }).catch((error) => {
+      alert("Invalid OTP");
+    });
+  });
+</script>
+
+</body>
+</html>
