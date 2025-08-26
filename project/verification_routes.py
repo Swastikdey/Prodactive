@@ -1,5 +1,5 @@
 from flask import render_template, redirect, flash, url_for, session
-from utils import send_verification_email, confirm_token
+from project.utils import send_verification_email, confirm_token
 from flask_login import login_required, current_user
 from project.config import db, app
 from project.models import User
