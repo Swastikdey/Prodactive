@@ -1,4 +1,4 @@
-from config import db
+from project.config import db
 from datetime import datetime
 from flask_login import UserMixin
 class Reminders(db.Model):

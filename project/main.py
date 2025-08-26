@@ -1,10 +1,10 @@
 from flask import request, jsonify,render_template, flash, render_template, redirect, url_for
-from config import app,db,bcrypt
-from models import Reminders, User
+from project.config import app,db,bcrypt
+from project.models import Reminders, User
 from datetime import datetime
 import verification_routes
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from forms import RegisterForm, LoginForm
+from project.forms import RegisterForm, LoginForm
 
 # @app.context_processor # to inject currrent_user to all the jinja templates
 # def inject_user():

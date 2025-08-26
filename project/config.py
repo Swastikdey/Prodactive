@@ -27,7 +27,7 @@ migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
 
-from models import User
+from project.models import User
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'  # route name of login view

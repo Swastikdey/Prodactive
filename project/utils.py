@@ -2,7 +2,7 @@ from itsdangerous import URLSafeTimedSerializer as Serializer
 #from verification_routes import confirm_email
 from flask_mail import Message
 from flask import url_for
-from config import mail, app
+from project.config import mail, app
 
 def generate_token(email):
     s = Serializer(app.config['SECRET_KEY']) 
