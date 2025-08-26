@@ -2,7 +2,7 @@ from flask import request, jsonify,render_template, flash, render_template, redi
 from project.config import app,db,bcrypt
 from project.models import Reminders, User
 from datetime import datetime
-import verification_routes
+import project.verification_routes
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from project.forms import RegisterForm, LoginForm
 
