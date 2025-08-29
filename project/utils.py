@@ -3,6 +3,7 @@ from itsdangerous import URLSafeTimedSerializer as Serializer
 from flask_mail import Message
 from flask import url_for
 from project.config import mail, app
+import os
 
 def generate_token(email):
     s = Serializer(app.config['SECRET_KEY']) 
@@ -22,7 +23,7 @@ def send_verification_email(user):
     link = url_for('confirm_email', token=token, _external=True)
 
     msg = Message('Confirm Your Email',
-                  sender='swastik.dey.2003@gmail.com',
+                  sender=os.environ.get("EMAIL_USER"),
                   recipients=[user.email])
     msg.body = f'Click this link to verify your email: {link}'
     mail.send(msg)

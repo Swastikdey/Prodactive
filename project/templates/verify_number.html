@@ -27,7 +27,7 @@
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
     const firebaseConfig = {
-        apiKey: "AIzaSyCvLYarpFCrcFYzsUEnSLtQy2gnVDHxabM",
+        apiKey: {{ os.environ.get("FIREBASE_API_KEY") }} ,
         authDomain: "remindit-7ec38.firebaseapp.com",
         projectId: "remindit-7ec38",
         storageBucket: "remindit-7ec38.firebasestorage.app",
